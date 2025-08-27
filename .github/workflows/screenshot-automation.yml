@@ -1,4 +1,4 @@
-name: Website Screenshot Automation
+name: Screenshot Automation
 
 on:
   schedule:
@@ -8,29 +8,29 @@ on:
 jobs:
   screenshot:
     runs-on: ubuntu-latest
-
-    env:
-      LOGIN_USER: ${{ secrets.LOGIN_USER }}
-      LOGIN_PASS: ${{ secrets.LOGIN_PASS }}
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
       - name: Run screenshot script
+        env:
+          LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
         run: node screenshot.js
 
       - name: Upload screenshot
         uses: actions/upload-artifact@v4
         with:
           name: website-screenshots
-          path: |
-            screenshot-*.png
+          path: screenshot-*.png
