@@ -1,4 +1,5 @@
 const { chromium } = require('playwright');
+require('dotenv').config();
 const username = process.env.LOGIN_USER;
 const password = process.env.LOGIN_PASS;
 
