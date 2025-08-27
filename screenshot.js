@@ -2,7 +2,7 @@ require('dotenv').config();
 const { chromium } = require('playwright');
 
 (async () => {
-    const browser = await chromium.launch({ headless: false, slowMo: 100 });
+    const browser = await chromium.launch({ headless: true, slowMo: 100 });
     const context = await browser.newContext();
     const page = await context.newPage();
 
@@ -43,7 +43,7 @@ const { chromium } = require('playwright');
 
         removeElement = await page.$('.intercom-lightweight-app');
         if (removeElement) await removeElement.evaluate((el) => el.remove());
-        section = await page.$('#container-fluid');
+        section = await page.$('.app-card');
         await section.scrollIntoViewIfNeeded();
         await page.waitForTimeout(1000);
         await section.screenshot({ path: `hottest-contracts-screenshot-${Date.now()}.png` });
@@ -59,7 +59,7 @@ const { chromium } = require('playwright');
 
         removeElement = await page.$('.intercom-lightweight-app');
         if (removeElement) await removeElement.evaluate((el) => el.remove());
-        section = await page.$('#container-fluid');
+        section = await page.$('.app-card');
         await section.scrollIntoViewIfNeeded();
         await page.waitForTimeout(1000);
         await section.screenshot({ path: `unusualflow-picks-screenshot-${Date.now()}.png` });
@@ -75,7 +75,7 @@ const { chromium } = require('playwright');
 
         removeElement = await page.$('.intercom-lightweight-app');
         if (removeElement) await removeElement.evaluate((el) => el.remove());
-        section = await page.$('#container-fluid');
+        section = await page.$('.app-card');
         await section.scrollIntoViewIfNeeded();
         await page.waitForTimeout(1000);
         await section.screenshot({ path: `top-performers-screenshot-${Date.now()}.png` });
