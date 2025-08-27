@@ -25,6 +25,9 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Screenshot Script
+        env:
+          LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
         run: node screenshot.js
 
       - name: Upload Screenshots
