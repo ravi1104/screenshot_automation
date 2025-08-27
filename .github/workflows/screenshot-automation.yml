@@ -18,10 +18,10 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install chromium --with-deps
 
       - name: Run screenshot script
         env:
@@ -29,7 +29,7 @@ jobs:
           LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
         run: node screenshot.js
 
-      - name: Upload screenshot
+      - name: Upload screenshots
         uses: actions/upload-artifact@v4
         with:
           name: website-screenshots
