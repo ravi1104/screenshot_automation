@@ -3,44 +3,41 @@ name: Screenshot Automation
 on:
   schedule:
     - cron: "*/10 * * * *" # Runs every 10 minutes
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual runs too
 
 jobs:
   screenshot-job:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout your repository
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      # Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Cache Playwright
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright
-          restore-keys: |
-            ${{ runner.os }}-playwright
-
+      # Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # Install Playwright browsers
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      # Run screenshot script
       - name: Run screenshot script
         env:
           LOGIN_USER: ${{ secrets.LOGIN_USER }}
           LOGIN_PASS: ${{ secrets.LOGIN_PASS }}
         run: node screenshot.js
-        continue-on-error: true
 
+      # Upload screenshots as artifact
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
-          path: screenshots/
+          path: "*.png"
