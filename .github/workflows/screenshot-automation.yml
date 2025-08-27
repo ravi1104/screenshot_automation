@@ -1,0 +1,46 @@
+name: Screenshot Automation
+
+on:
+  schedule:
+    - cron: "*/10 * * * *" # Runs every 10 minutes
+  workflow_dispatch:
+
+jobs:
+  screenshot-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Cache Playwright
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright
+          restore-keys: |
+            ${{ runner.os }}-playwright
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run screenshot script
+        env:
+          LOGIN_USER: ${{ secrets.LOGIN_USER }}
+          LOGIN_PASS: ${{ secrets.LOGIN_PASS }}
+        run: node screenshot.js
+        continue-on-error: true
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: screenshots/
