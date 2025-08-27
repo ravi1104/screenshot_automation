@@ -1,0 +1,7 @@
+- name: Check Environment Variables (DEBUG)
+  run: |
+    echo "Email secret is ${LOGIN_EMAIL:+SET}"
+    echo "Password secret is ${LOGIN_PASSWORD:+SET}"
+  env:
+    LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
+    LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
