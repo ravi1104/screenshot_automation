@@ -13,8 +13,8 @@ jobs:
 
       - name: Check Environment Variables (DEBUG)
         env:
-          LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
-          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+          LOGIN_EMAIL: ${{ secrets.LOGIN_USER }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASS }}
         run: |
-          echo "Email secret is ${LOGIN_EMAIL}"
-          echo "Password secret is ${LOGIN_PASSWORD}"
+          echo "Email secret is ${LOGIN_USER}"
+          echo "Password secret is ${LOGIN_PASS}"
