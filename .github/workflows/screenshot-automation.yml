@@ -1,43 +1,36 @@
-name: Screenshot Automation
+name: Website Screenshot Automation
 
 on:
   schedule:
-    - cron: "*/10 * * * *" # Runs every 10 minutes
-  workflow_dispatch: # Allows manual runs too
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
 
 jobs:
-  screenshot-job:
+  screenshot:
     runs-on: ubuntu-latest
 
-    steps:
-      # Checkout your repository
-      - name: Checkout repo
-        uses: actions/checkout@v3
+    env:
+      LOGIN_USER: ${{ secrets.LOGIN_USER }}
+      LOGIN_PASS: ${{ secrets.LOGIN_PASS }}
 
-      # Set up Node.js
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # Install Playwright browsers
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-      # Run screenshot script
       - name: Run screenshot script
-        env:
-          LOGIN_USER: ${{ secrets.LOGIN_USER }}
-          LOGIN_PASS: ${{ secrets.LOGIN_PASS }}
         run: node screenshot.js
 
-      # Upload screenshots as artifact
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v3
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v4
         with:
-          name: screenshots
-          path: "*.png"
+          name: website-screenshots
+          path: |
+            screenshot-*.png
