@@ -8,6 +8,7 @@ jobs:
   screenshot:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    environment: env
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,7 +25,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Screenshot Script
-        env:
+        env: 
           LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
           LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
         run: node screenshot.js
