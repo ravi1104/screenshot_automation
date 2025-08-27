@@ -26,8 +26,8 @@ jobs:
 
       - name: Run Screenshot Script
         env: 
-          LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
-          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+          LOGIN_EMAIL: ${{ secrets.LOGIN_USER }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASS }}
         run: node screenshot.js
 
       - name: Upload Screenshots

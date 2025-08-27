@@ -1,0 +1,20 @@
+name: Test Secrets Only
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-secrets:
+    runs-on: ubuntu-latest
+    environment: env
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Environment Variables (DEBUG)
+        env:
+          LOGIN_EMAIL: ${{ secrets.LOGIN_USER }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASS }}
+        run: |
+          echo "Email secret is ${secrets.LOGIN_USER}"
+          echo "Password secret is ${secrets.LOGIN_PASS}"
