@@ -1,14 +1,22 @@
+name: Website Screenshots
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
 jobs:
   screenshot:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: lts/*
 
       - name: Install dependencies
         run: npm ci
@@ -16,5 +24,11 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run screenshot script
+      - name: Run Screenshot Script
         run: node screenshot.js
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-screenshots
+          path: screenshot-*.png
