@@ -34,7 +34,7 @@ console.log("Password:", password ? "Loaded" : "Missing");
         let section = await page.$('#canvas-wrapper');
         await section.scrollIntoViewIfNeeded();
         await page.waitForTimeout(1000);
-        await section.screenshot({ path: `heatmap-screenshot-${Date.now()}.png` });
+        await section.screenshot({ path: `screenshot-heatmap-${Date.now()}.png` });
         console.log("✅ Heatmap screenshot saved!");
 
         // ============ PAGE 2: Hottest Contracts ============
@@ -51,7 +51,7 @@ console.log("Password:", password ? "Loaded" : "Missing");
         section = await page.$('.app-card');
         await section.scrollIntoViewIfNeeded();
         await page.waitForTimeout(1000);
-        await section.screenshot({ path: `hottest-contracts-screenshot-${Date.now()}.png` });
+        await section.screenshot({ path: `screenshot-hottest-contracts-${Date.now()}.png` });
         console.log("✅ Hottest Contracts screenshot saved!");
 
         // ============ PAGE 3: Unusualflow Picks ============
@@ -67,7 +67,7 @@ console.log("Password:", password ? "Loaded" : "Missing");
         section = await page.$('.app-card');
         await section.scrollIntoViewIfNeeded();
         await page.waitForTimeout(1000);
-        await section.screenshot({ path: `unusualflow-picks-screenshot-${Date.now()}.png` });
+        await section.screenshot({ path: `screenshot-unusualflow-picks-${Date.now()}.png` });
         console.log("✅ Unusualflow Picks screenshot saved!");
 
         // ============ PAGE 4: Top Performers ============
@@ -83,7 +83,7 @@ console.log("Password:", password ? "Loaded" : "Missing");
         section = await page.$('.app-card');
         await section.scrollIntoViewIfNeeded();
         await page.waitForTimeout(1000);
-        await section.screenshot({ path: `top-performers-screenshot-${Date.now()}.png` });
+        await section.screenshot({ path: `screenshot-top-performers-${Date.now()}.png` });
         console.log("✅ Top Performers screenshot saved!");
 
     } catch (error) {
