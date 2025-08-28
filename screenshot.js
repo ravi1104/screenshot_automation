@@ -1,10 +1,5 @@
 const { chromium } = require('playwright');
 require('dotenv').config();
-const username = process.env.LOGIN_USER;
-const password = process.env.LOGIN_PASS;
-
-console.log("Username:", username ? "Loaded" : "Missing");
-console.log("Password:", password ? "Loaded" : "Missing");
 
 (async () => {
     const browser = await chromium.launch({ headless: true, slowMo: 100 });
