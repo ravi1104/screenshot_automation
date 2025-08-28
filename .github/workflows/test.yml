@@ -16,5 +16,5 @@ jobs:
           LOGIN_EMAIL: ${{ secrets.LOGIN_USER }}
           LOGIN_PASSWORD: ${{ secrets.LOGIN_PASS }}
         run: |
-          echo "Email secret is ${LOGIN_USER}"
-          echo "Password secret is ${LOGIN_PASS}"
+          echo "Email secret is ${LOGIN_EMAIL}"
+          echo "Password secret is ${LOGIN_PASSWORD}"
